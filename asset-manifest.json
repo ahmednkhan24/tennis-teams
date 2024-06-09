@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/tennis-teams/static/css/main.16be4ca6.css",
+    "main.js": "/tennis-teams/static/js/main.cd5feb0c.js",
+    "index.html": "/tennis-teams/index.html",
+    "main.16be4ca6.css.map": "/tennis-teams/static/css/main.16be4ca6.css.map",
+    "main.cd5feb0c.js.map": "/tennis-teams/static/js/main.cd5feb0c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.16be4ca6.css",
+    "static/js/main.cd5feb0c.js"
+  ]
+}
