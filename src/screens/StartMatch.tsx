@@ -29,7 +29,7 @@ export const StartMatch: React.FC = () => {
     if (!isNumPlayerSelectorStep) {
       setIsNumPlayerSelectorStep(true);
     }
-  }, [matchType, isNumPlayerSelectorStep]);
+  }, [isNumPlayerSelectorStep]);
 
   return (
     <Container className="pt-3">

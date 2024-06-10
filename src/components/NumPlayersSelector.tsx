@@ -64,7 +64,7 @@ export const NumPlayersSelector: React.FC = () => {
         delete copied[id];
         return copied;
       }),
-    [players]
+    []
   );
 
   return (
