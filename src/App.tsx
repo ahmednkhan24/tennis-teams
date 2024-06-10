@@ -4,6 +4,7 @@ import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Home } from './screens/Home';
 import { Content } from './screens/Content';
 import { NavBar } from './components/NavBar';
+import { StartMatch } from 'screens/StartMatch';
 
 const App: React.FC = () => {
   return (
@@ -13,6 +14,7 @@ const App: React.FC = () => {
         <Route path="/*">
           <Route index element={<Home />} />
           <Route path="content" element={<Content />} />
+          <Route path="new" element={<StartMatch />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
