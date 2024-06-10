@@ -3,6 +3,7 @@ import { useCallback, useState } from 'react';
 import { NameThePlayerInput } from './NameThePlayerInput';
 import { PersonPlus } from 'react-bootstrap-icons';
 import Button from 'react-bootstrap/Button';
+import { CenteredContainer } from './CenteredContainer';
 
 const Styled = {
   Container: styled.div({
@@ -50,27 +51,43 @@ export const NumPlayersSelector: React.FC = () => {
   );
 
   const addNewPlayer = useCallback(() => {
-    const currentNumPlayers = Object.keys(players).length;
+    const values = Object.values(players);
+    const currentNumPlayers = values[values.length - 1].id;
     const newPlayer = createPlayer(currentNumPlayers + 1);
     setPlayers((p) => ({ ...p, [newPlayer.id]: newPlayer }));
   }, [players]);
 
+  const removePlayer = useCallback(
+    (id: number) =>
+      setPlayers((p) => {
+        const copied = { ...p };
+        delete copied[id];
+        return copied;
+      }),
+    [players]
+  );
+
   return (
     <>
-      {Object.values(players).map((player) => (
-        <NameThePlayerInput
-          key={player.id}
-          playerId={player.id}
-          playerName={player.name}
-          updatePlayerName={updatePlayerName}
-        />
-      ))}
+      <CenteredContainer>
+        <h2 className="mb-3">Who's playing?</h2>
+        {Object.values(players).map((player, idx) => (
+          <NameThePlayerInput
+            key={player.id}
+            playerId={player.id}
+            index={idx + 1}
+            playerName={player.name}
+            updatePlayerName={updatePlayerName}
+            removePlayer={removePlayer}
+          />
+        ))}
+      </CenteredContainer>
       <div className="d-grid">
         <Button variant="light" size="lg" onClick={addNewPlayer}>
           <Styled.AddPlayerIcon>
             <PersonPlus />
           </Styled.AddPlayerIcon>
-          <span>Add Player</span>
+          <span>Add player</span>
         </Button>
       </div>
     </>
