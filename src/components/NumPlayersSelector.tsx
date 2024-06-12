@@ -1,10 +1,10 @@
-import styled from '@emotion/styled';
 import { Dispatch, SetStateAction, useCallback } from 'react';
-import { NameThePlayerInput } from './NameThePlayerInput';
 import { PersonPlus } from 'react-bootstrap-icons';
-import Button from 'react-bootstrap/Button';
-import { CenteredContainer } from './CenteredContainer';
 import { PeopleFill, PersonFill } from 'react-bootstrap-icons';
+import Button from 'react-bootstrap/Button';
+import styled from '@emotion/styled';
+import { CenteredContainer } from './CenteredContainer';
+import { NameThePlayerInput } from './NameThePlayerInput';
 
 const Styled = {
   Container: styled.div({

@@ -1,9 +1,9 @@
 import { useMemo, useState } from 'react';
-import InputGroup from 'react-bootstrap/InputGroup';
 import { X as XIcon } from 'react-bootstrap-icons';
-import Form from 'react-bootstrap/Form';
-import { useDebounce } from 'react-use';
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
+import { useDebounce } from 'react-use';
 import { Player } from './NumPlayersSelector';
 
 export interface NameThePlayerInputProps {

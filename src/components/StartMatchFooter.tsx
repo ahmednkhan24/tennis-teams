@@ -1,6 +1,6 @@
-import styled from '@emotion/styled';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
+import styled from '@emotion/styled';
 
 const Styled = {
   Footer: styled.div({

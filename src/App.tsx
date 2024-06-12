@@ -1,9 +1,9 @@
 import React from 'react';
 // using HashRouter bc GitHub pages doesn't support the tech used by the BrowserRouter
-import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { Home } from './screens/Home';
-import { Content } from './screens/Content';
-import { NavBar } from './components/NavBar';
+import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { NavBar } from 'components/NavBar';
+import { Content } from 'screens/Content';
+import { Home } from 'screens/Home';
 import { StartMatch } from 'screens/StartMatch';
 
 const App: React.FC = () => {

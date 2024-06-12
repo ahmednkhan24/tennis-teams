@@ -1,12 +1,12 @@
+import { useMemo, useState } from 'react';
+import React from 'react';
+import Container from 'react-bootstrap/Container';
 import { MatchTypeSelection } from 'components/MatchTypeSelection';
 import {
   NumPlayersSelector,
   createPlayer,
 } from 'components/NumPlayersSelector';
 import { StartMatchFooter } from 'components/StartMatchFooter';
-import { useMemo, useState } from 'react';
-import React from 'react';
-import Container from 'react-bootstrap/Container';
 import styled from '@emotion/styled';
 
 const Styled = {

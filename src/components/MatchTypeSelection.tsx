@@ -1,7 +1,7 @@
 import { Dispatch, ReactNode, SetStateAction } from 'react';
-import styled from '@emotion/styled';
+import { CheckCircle, PeopleFill, PersonFill } from 'react-bootstrap-icons';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { PeopleFill, PersonFill, CheckCircle } from 'react-bootstrap-icons';
+import styled from '@emotion/styled';
 import { CenteredContainer } from './CenteredContainer';
 
 const Styled = {
