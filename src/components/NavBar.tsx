@@ -2,9 +2,15 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export const NavBar: React.FC = () => {
+  const { pathname } = useLocation();
+
+  if (pathname.includes('new')) {
+    return null;
+  }
+
   return (
     <Navbar bg="light" expand="lg">
       <Container>

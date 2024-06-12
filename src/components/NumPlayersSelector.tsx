@@ -4,6 +4,7 @@ import { NameThePlayerInput } from './NameThePlayerInput';
 import { PersonPlus } from 'react-bootstrap-icons';
 import Button from 'react-bootstrap/Button';
 import { CenteredContainer } from './CenteredContainer';
+import { PeopleFill, PersonFill } from 'react-bootstrap-icons';
 
 const Styled = {
   Container: styled.div({
@@ -20,65 +21,90 @@ const Styled = {
   }),
 };
 
-const INITIAL_NUM_PLAYERS = 2;
-
-type Player = {
+export type Player = {
   id: number;
   name: string;
 };
 
 const createPlayer = (idx: number): Player => ({ name: '', id: idx });
 
-const createPlayers = (numPlayers = INITIAL_NUM_PLAYERS) => {
-  const players: Record<number, Player> = {};
-  for (let i = 0; i < numPlayers; i++) {
-    const id = i + 1;
-    players[id] = createPlayer(id);
-  }
-  return players;
-};
+const createPlayers = (numPlayers: number) =>
+  Array(numPlayers)
+    .fill(undefined)
+    .map((_, idx) => createPlayer(idx));
 
-export const NumPlayersSelector: React.FC = () => {
-  const [players, setPlayers] = useState(createPlayers);
+export interface NumPlayersSelectorProps {
+  matchType: string;
+}
+
+export const NumPlayersSelector: React.FC<NumPlayersSelectorProps> = ({
+  matchType,
+}) => {
+  const [players, setPlayers] = useState(() =>
+    createPlayers(matchType === 'doubles' ? 4 : 2)
+  );
+
+  const addNewPlayer = useCallback(
+    () => setPlayers((p) => [...p, createPlayer(p.length)]),
+    []
+  );
+
+  const removePlayer = useCallback(
+    (id: number) => setPlayers((p) => p.filter((player) => player.id !== id)),
+    []
+  );
 
   const updatePlayerName = useCallback(
-    (id: number, name: string) => {
-      const playerToUpdate = players[id];
-      const updated = { ...playerToUpdate, name };
-      setPlayers((p) => ({ ...p, [id]: updated }));
+    (name: string, index: number) => {
+      if (players[index].name !== name) {
+        setPlayers((p) => {
+          const copy = [...p];
+          copy[index] = { ...copy[index], name };
+          return copy;
+        });
+      }
     },
     [players]
   );
 
-  const addNewPlayer = useCallback(() => {
-    const values = Object.values(players);
-    const currentNumPlayers = values[values.length - 1].id;
-    const newPlayer = createPlayer(currentNumPlayers + 1);
-    setPlayers((p) => ({ ...p, [newPlayer.id]: newPlayer }));
-  }, [players]);
-
-  const removePlayer = useCallback(
-    (id: number) =>
-      setPlayers((p) => {
-        const copied = { ...p };
-        delete copied[id];
-        return copied;
-      }),
-    []
+  const focusNextPlayer = useCallback(
+    (playerNum: number) => {
+      // todo
+      if (playerNum === players.length - 1) {
+        // add a new player entry
+        console.log('add new player');
+      } else {
+        // focus on the next input
+        console.log('focus on next player');
+      }
+    },
+    [players.length]
   );
 
   return (
     <>
+      <h4>
+        {matchType === 'singles' ? (
+          <>
+            <PersonFill /> Singles
+          </>
+        ) : (
+          <>
+            <PeopleFill /> Doubles
+          </>
+        )}
+      </h4>
       <CenteredContainer>
         <h2 className="mb-3">Who's playing?</h2>
         {Object.values(players).map((player, idx) => (
           <NameThePlayerInput
             key={player.id}
-            playerId={player.id}
-            index={idx + 1}
-            playerName={player.name}
-            updatePlayerName={updatePlayerName}
+            player={player}
+            playerNum={idx + 1}
+            matchType={matchType}
             removePlayer={removePlayer}
+            updatePlayerName={(name: string) => updatePlayerName(name, idx)}
+            onPressEnter={() => focusNextPlayer(idx)}
           />
         ))}
       </CenteredContainer>
