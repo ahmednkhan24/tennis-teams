@@ -13,6 +13,9 @@ const Styled = {
       padding: '0 15px',
     },
   }),
+  Message: styled.h2({
+    paddingTop: 40,
+  }),
 };
 
 interface ItemProps {
@@ -57,7 +60,7 @@ export const MatchTypeSelection: React.FC<MatchTypeSelectionProps> = ({
 }) => {
   return (
     <CenteredContainer>
-      <h2>What type of match are you playing?</h2>
+      <Styled.Message>What type of match are you playing?</Styled.Message>
       <Item
         text="Singles"
         startElement={<PersonFill size={50} />}

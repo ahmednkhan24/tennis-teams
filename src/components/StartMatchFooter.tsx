@@ -3,15 +3,11 @@ import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 
 const Styled = {
-  StickyFooter: styled.div({
-    borderTop: '1px solid #dbdbdb',
-    padding: '0 15px',
+  Footer: styled.div({
     display: 'flex',
     justifyContent: 'space-between',
-    position: 'fixed',
-    left: 0,
-    bottom: 0,
-    width: '100%',
+    borderTop: '1px solid #dbdbdb',
+    padding: '0 15px',
   }),
 };
 
@@ -45,38 +41,38 @@ const FooterButton: React.FC<FooterButtonProps> = ({
 );
 
 export interface StartMatchFooterProps {
-  matchType: string;
-  isMatchTypeSelection: boolean;
+  canGoBack: boolean;
+  canGoNext: boolean;
   onClickBack: () => void;
   onClickNext: () => void;
 }
 
 export const StartMatchFooter: React.FC<StartMatchFooterProps> = ({
-  matchType,
-  isMatchTypeSelection,
+  canGoBack,
+  canGoNext,
   onClickBack,
   onClickNext,
 }) => {
   const navigate = useNavigate();
 
   return (
-    <Styled.StickyFooter>
+    <Styled.Footer>
       <FooterButton
         text="Cancel"
         variant="danger"
         onClick={() => navigate('/')}
       />
       <div>
-        {!isMatchTypeSelection && (
+        {canGoBack && (
           <FooterButton text="Back" variant="light" onClick={onClickBack} />
         )}
         <FooterButton
           text="Next"
           variant="primary"
-          disabled={!matchType}
+          disabled={!canGoNext}
           onClick={onClickNext}
         />
       </div>
-    </Styled.StickyFooter>
+    </Styled.Footer>
   );
 };

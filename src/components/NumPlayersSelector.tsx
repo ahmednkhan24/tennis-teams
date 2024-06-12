@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useCallback, useState } from 'react';
+import { Dispatch, SetStateAction, useCallback } from 'react';
 import { NameThePlayerInput } from './NameThePlayerInput';
 import { PersonPlus } from 'react-bootstrap-icons';
 import Button from 'react-bootstrap/Button';
@@ -26,32 +26,27 @@ export type Player = {
   name: string;
 };
 
-const createPlayer = (idx: number): Player => ({ name: '', id: idx });
-
-const createPlayers = (numPlayers: number) =>
-  Array(numPlayers)
-    .fill(undefined)
-    .map((_, idx) => createPlayer(idx));
+export const createPlayer = (idx: number): Player => ({ name: '', id: idx });
 
 export interface NumPlayersSelectorProps {
+  players: Player[];
+  setPlayers: Dispatch<SetStateAction<Player[]>>;
   matchType: string;
 }
 
 export const NumPlayersSelector: React.FC<NumPlayersSelectorProps> = ({
+  players,
+  setPlayers,
   matchType,
 }) => {
-  const [players, setPlayers] = useState(() =>
-    createPlayers(matchType === 'doubles' ? 4 : 2)
-  );
-
   const addNewPlayer = useCallback(
     () => setPlayers((p) => [...p, createPlayer(p.length)]),
-    []
+    [setPlayers]
   );
 
   const removePlayer = useCallback(
     (id: number) => setPlayers((p) => p.filter((player) => player.id !== id)),
-    []
+    [setPlayers]
   );
 
   const updatePlayerName = useCallback(
@@ -64,7 +59,7 @@ export const NumPlayersSelector: React.FC<NumPlayersSelectorProps> = ({
         });
       }
     },
-    [players]
+    [players, setPlayers]
   );
 
   const focusNextPlayer = useCallback(
@@ -73,12 +68,13 @@ export const NumPlayersSelector: React.FC<NumPlayersSelectorProps> = ({
       if (playerNum === players.length - 1) {
         // add a new player entry
         console.log('add new player');
+        addNewPlayer();
       } else {
         // focus on the next input
         console.log('focus on next player');
       }
     },
-    [players.length]
+    [addNewPlayer, players.length]
   );
 
   return (
@@ -98,12 +94,12 @@ export const NumPlayersSelector: React.FC<NumPlayersSelectorProps> = ({
         <h2 className="mb-3">Who's playing?</h2>
         {Object.values(players).map((player, idx) => (
           <NameThePlayerInput
-            key={player.id}
+            key={idx}
             player={player}
             playerNum={idx + 1}
             matchType={matchType}
             removePlayer={removePlayer}
-            updatePlayerName={(name: string) => updatePlayerName(name, idx)}
+            updatePlayerName={(name) => updatePlayerName(name, idx)}
             onPressEnter={() => focusNextPlayer(idx)}
           />
         ))}

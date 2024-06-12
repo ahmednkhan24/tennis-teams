@@ -1,47 +1,80 @@
 import { MatchTypeSelection } from 'components/MatchTypeSelection';
-import { NumPlayersSelector } from 'components/NumPlayersSelector';
+import {
+  NumPlayersSelector,
+  createPlayer,
+} from 'components/NumPlayersSelector';
 import { StartMatchFooter } from 'components/StartMatchFooter';
-import { useCallback, useState } from 'react';
+import { useMemo, useState } from 'react';
 import React from 'react';
 import Container from 'react-bootstrap/Container';
+import styled from '@emotion/styled';
 
-// todo: prevent content from overlapping footer and going out of view
+const Styled = {
+  Content: styled.div({
+    display: 'flex',
+    minHeight: '88vh',
+    flexDirection: 'column',
+    paddingBottom: 20,
+  }),
+};
+
+enum Steps {
+  MatchTypeSelection, // 0
+  PlayerNameSelection, // 1
+  MatchPreviewSelection, // 2
+}
+
+const createPlayers = (numPlayers: number) =>
+  Array(numPlayers)
+    .fill(undefined)
+    .map((_, idx) => createPlayer(idx));
 
 export const StartMatch: React.FC = () => {
+  const [step, setStep] = useState(Steps.MatchTypeSelection);
   const [matchType, setMatchType] = useState('');
-  const [isMatchTypeSelectionStep, setIsMatchTypeSelectionStep] =
-    useState(true);
-  const [isNumPlayerSelectorStep, setIsNumPlayerSelectorStep] = useState(false);
+  const [players, setPlayers] = useState(() =>
+    createPlayers(matchType === 'doubles' ? 4 : 2)
+  );
 
-  const onClickBack = useCallback(() => {
-    if (isNumPlayerSelectorStep) {
-      setIsNumPlayerSelectorStep(false);
-      setIsMatchTypeSelectionStep(true);
+  const canGoNext = useMemo(() => {
+    if (step === Steps.MatchTypeSelection) {
+      return !!matchType;
     }
-  }, [isNumPlayerSelectorStep]);
 
-  const onClickNext = useCallback(() => {
-    setIsMatchTypeSelectionStep(false);
-    if (!isNumPlayerSelectorStep) {
-      setIsNumPlayerSelectorStep(true);
+    if (step === Steps.PlayerNameSelection) {
+      // todo:
+      return false;
     }
-  }, [isNumPlayerSelectorStep]);
+
+    return true;
+  }, [matchType, step]);
 
   return (
-    <Container className="pt-3">
-      {isMatchTypeSelectionStep ? (
-        <MatchTypeSelection matchType={matchType} setMatchType={setMatchType} />
-      ) : isNumPlayerSelectorStep ? (
-        <NumPlayersSelector matchType={matchType} />
-      ) : (
-        <div>TODO: preview screen</div>
-      )}
+    <>
+      <Container className="pt-3">
+        <Styled.Content>
+          {step === Steps.MatchTypeSelection ? (
+            <MatchTypeSelection
+              matchType={matchType}
+              setMatchType={setMatchType}
+            />
+          ) : step === Steps.PlayerNameSelection ? (
+            <NumPlayersSelector
+              players={players}
+              setPlayers={setPlayers}
+              matchType={matchType}
+            />
+          ) : (
+            <div>TODO: preview screen</div>
+          )}
+        </Styled.Content>
+      </Container>
       <StartMatchFooter
-        matchType={matchType}
-        isMatchTypeSelection={isMatchTypeSelectionStep}
-        onClickBack={onClickBack}
-        onClickNext={onClickNext}
+        canGoNext={canGoNext}
+        canGoBack={step !== Steps.MatchTypeSelection}
+        onClickBack={() => setStep((s) => s - 1)}
+        onClickNext={() => setStep((s) => s + 1)}
       />
-    </Container>
+    </>
   );
 };
