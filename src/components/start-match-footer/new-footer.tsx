@@ -49,7 +49,7 @@ export const NewFooter: React.FC<NewFooterProps> = ({
   return (
     <div className={styles.footer}>
       <FooterButton
-        text="Cancel"
+        text="Cancel!"
         variant="danger"
         onClick={() => navigate('/')}
       />
