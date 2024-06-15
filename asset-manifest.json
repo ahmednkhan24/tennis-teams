@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/tennis-teams/static/css/main.0d01d685.css",
-    "main.js": "/tennis-teams/static/js/main.3951c401.js",
+    "main.css": "/tennis-teams/static/css/main.be6fc47d.css",
+    "main.js": "/tennis-teams/static/js/main.76930ce6.js",
     "index.html": "/tennis-teams/index.html",
-    "main.0d01d685.css.map": "/tennis-teams/static/css/main.0d01d685.css.map",
-    "main.3951c401.js.map": "/tennis-teams/static/js/main.3951c401.js.map"
+    "main.be6fc47d.css.map": "/tennis-teams/static/css/main.be6fc47d.css.map",
+    "main.76930ce6.js.map": "/tennis-teams/static/js/main.76930ce6.js.map"
   },
   "entrypoints": [
-    "static/css/main.0d01d685.css",
-    "static/js/main.3951c401.js"
+    "static/css/main.be6fc47d.css",
+    "static/js/main.76930ce6.js"
   ]
 }
