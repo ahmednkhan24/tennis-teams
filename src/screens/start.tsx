@@ -31,9 +31,9 @@ export const StartMatch: React.FC = () => {
   }, [matchType, step]);
 
   return (
-    <>
-      <Container className="pt-3">
-        <div className={styles.startMatchContent}>
+    <div className={styles.startMatchContainer}>
+      <div className="pb-3">
+        <Container className="pt-3">
           {step === Steps.MatchTypeSelection ? (
             <MatchType matchType={matchType} setMatchType={setMatchType} />
           ) : step === Steps.PlayerNameSelection ? (
@@ -45,14 +45,14 @@ export const StartMatch: React.FC = () => {
           ) : (
             <div>TODO: preview screen</div>
           )}
-        </div>
-      </Container>
+        </Container>
+      </div>
       <NewFooter
         canGoNext={canGoNext}
         canGoBack={step !== Steps.MatchTypeSelection}
         onClickBack={() => setStep((s) => s - 1)}
         onClickNext={() => setStep((s) => s + 1)}
       />
-    </>
+    </div>
   );
 };
