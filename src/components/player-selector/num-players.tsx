@@ -1,25 +1,8 @@
-import { Dispatch, SetStateAction, useCallback } from 'react';
+import { Dispatch, SetStateAction, useCallback, useEffect } from 'react';
 import { PersonPlus } from 'react-bootstrap-icons';
 import { PeopleFill, PersonFill } from 'react-bootstrap-icons';
 import Button from 'react-bootstrap/Button';
-import styled from '@emotion/styled';
-import { CenteredContainer } from './CenteredContainer';
-import { NameThePlayerInput } from './NameThePlayerInput';
-
-const Styled = {
-  Container: styled.div({
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 20,
-    '>*': {
-      margin: '0 5px',
-    },
-  }),
-  AddPlayerIcon: styled.span({
-    paddingRight: 5,
-  }),
-};
+import { NamePlayer } from './name-player';
 
 export type Player = {
   id: number;
@@ -28,17 +11,32 @@ export type Player = {
 
 export const createPlayer = (idx: number): Player => ({ name: '', id: idx });
 
-export interface NumPlayersSelectorProps {
+export const createPlayers = (numPlayers: number) =>
+  Array(numPlayers)
+    .fill(undefined)
+    .map((_, idx) => createPlayer(idx));
+
+export interface NumPlayersProps {
   players: Player[];
   setPlayers: Dispatch<SetStateAction<Player[]>>;
   matchType: string;
 }
 
-export const NumPlayersSelector: React.FC<NumPlayersSelectorProps> = ({
+export const NumPlayers: React.FC<NumPlayersProps> = ({
   players,
   setPlayers,
   matchType,
 }) => {
+  // component first mount
+  useEffect(() => {
+    if (matchType === 'singles') {
+      setPlayers(createPlayers(2));
+    } else if (matchType === 'doubles') {
+      setPlayers(createPlayers(4));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const addNewPlayer = useCallback(
     () => setPlayers((p) => [...p, createPlayer(p.length)]),
     [setPlayers]
@@ -90,10 +88,10 @@ export const NumPlayersSelector: React.FC<NumPlayersSelectorProps> = ({
           </>
         )}
       </h4>
-      <CenteredContainer>
-        <h2 className="mb-3">Who's playing?</h2>
+      <div>
+        <h2 className="text-center mb-3">Who's playing?</h2>
         {Object.values(players).map((player, idx) => (
-          <NameThePlayerInput
+          <NamePlayer
             key={idx}
             player={player}
             playerNum={idx + 1}
@@ -103,13 +101,11 @@ export const NumPlayersSelector: React.FC<NumPlayersSelectorProps> = ({
             onPressEnter={() => focusNextPlayer(idx)}
           />
         ))}
-      </CenteredContainer>
+      </div>
       <div className="d-grid">
         <Button variant="light" size="lg" onClick={addNewPlayer}>
-          <Styled.AddPlayerIcon>
-            <PersonPlus />
-          </Styled.AddPlayerIcon>
-          <span>Add player</span>
+          <PersonPlus />
+          <span style={{ paddingLeft: 5 }}>Add player</span>
         </Button>
       </div>
     </>

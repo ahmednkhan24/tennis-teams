@@ -4,9 +4,9 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { useDebounce } from 'react-use';
-import { Player } from './NumPlayersSelector';
+import { Player } from './num-players';
 
-export interface NameThePlayerInputProps {
+export interface NamePlayerProps {
   player: Player;
   playerNum: number;
   matchType: string;
@@ -15,7 +15,7 @@ export interface NameThePlayerInputProps {
   onPressEnter: () => void;
 }
 
-export const NameThePlayerInput: React.FC<NameThePlayerInputProps> = ({
+export const NamePlayer: React.FC<NamePlayerProps> = ({
   playerNum,
   matchType,
   player,

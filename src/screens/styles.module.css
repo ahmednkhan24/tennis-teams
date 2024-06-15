@@ -1,0 +1,6 @@
+.startMatchContent {
+  display: flex;
+  flex-direction: column;
+  min-height: 88vh;
+  padding-bottom: 20px;
+}

@@ -1,22 +1,7 @@
 import { Dispatch, ReactNode, SetStateAction } from 'react';
 import { CheckCircle, PeopleFill, PersonFill } from 'react-bootstrap-icons';
 import ListGroup from 'react-bootstrap/ListGroup';
-import styled from '@emotion/styled';
-import { CenteredContainer } from './CenteredContainer';
-
-const Styled = {
-  Item: styled.span({
-    display: 'flex',
-    alignItems: 'center',
-    h1: {
-      display: 'inline',
-      padding: '0 15px',
-    },
-  }),
-  Message: styled.h2({
-    paddingTop: 40,
-  }),
-};
+import styles from './match-type.module.css';
 
 interface ItemProps {
   text: string;
@@ -41,26 +26,26 @@ const Item: React.FC<ItemProps> = ({
       border: '1px solid #dbdbdb',
     }}
   >
-    <Styled.Item>
+    <span className={styles.item}>
       {startElement}
-      <h1>{text}</h1>
+      <h1 className={styles.matchTypeHeading}>{text}</h1>
       {selected && <CheckCircle size={35} />}
-    </Styled.Item>
+    </span>
   </ListGroup.Item>
 );
 
-export interface MatchTypeSelectionProps {
+export interface MatchTypeProps {
   matchType: string;
   setMatchType: Dispatch<SetStateAction<string>>;
 }
 
-export const MatchTypeSelection: React.FC<MatchTypeSelectionProps> = ({
+export const MatchType: React.FC<MatchTypeProps> = ({
   matchType,
   setMatchType,
 }) => {
   return (
-    <CenteredContainer>
-      <Styled.Message>What type of match are you playing?</Styled.Message>
+    <>
+      <h2 className="text-center pt-4">What type of match are you playing?</h2>
       <Item
         text="Singles"
         startElement={<PersonFill size={50} />}
@@ -73,6 +58,6 @@ export const MatchTypeSelection: React.FC<MatchTypeSelectionProps> = ({
         selected={matchType === 'doubles'}
         onClick={() => setMatchType('doubles')}
       />
-    </CenteredContainer>
+    </>
   );
 };
