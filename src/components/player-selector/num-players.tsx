@@ -54,16 +54,13 @@ export const NumPlayers: React.FC<NumPlayersProps> = ({
   );
 
   const updatePlayerName = useCallback(
-    (name: string, index: number) => {
-      if (players[index].name !== name) {
-        setPlayers((p) => {
-          const copy = [...p];
-          copy[index] = { ...copy[index], name };
-          return copy;
-        });
-      }
-    },
-    [players, setPlayers]
+    (id: number, name: string) =>
+      setPlayers((p) =>
+        p.map((player: Player) =>
+          player.id === id ? { ...player, name } : player
+        )
+      ),
+    [setPlayers]
   );
 
   const focusNextPlayer = useCallback(
@@ -103,7 +100,7 @@ export const NumPlayers: React.FC<NumPlayersProps> = ({
             playerNum={idx + 1}
             matchType={matchType}
             removePlayer={removePlayer}
-            updatePlayerName={(name) => updatePlayerName(name, idx)}
+            updatePlayerName={(name) => updatePlayerName(player.id, name)}
             onPressEnter={() => focusNextPlayer(idx)}
           />
         ))}

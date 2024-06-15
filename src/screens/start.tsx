@@ -23,12 +23,12 @@ export const StartMatch: React.FC = () => {
     }
 
     if (step === Steps.PlayerNameSelection) {
-      // todo:
-      return false;
+      const minPlayers = matchType === 'singles' ? 2 : 4;
+      return players.filter(({ name }) => !!name).length >= minPlayers;
     }
 
     return true;
-  }, [matchType, step]);
+  }, [matchType, players, step]);
 
   return (
     <div className={styles.startMatchContainer}>
