@@ -30,10 +30,15 @@ export const NumPlayers: React.FC<NumPlayersProps> = ({
 }) => {
   // component first mount
   useEffect(() => {
-    if (matchType === 'singles') {
-      setPlayers(createPlayers(2));
-    } else if (matchType === 'doubles') {
-      setPlayers(createPlayers(4));
+    const playersWithNames = players.filter(({ name }) => !!name);
+
+    const minPlayers = matchType === 'singles' ? 2 : 4;
+    const difference = minPlayers - playersWithNames.length;
+
+    if (difference > 0) {
+      setPlayers([...playersWithNames, ...createPlayers(difference)]);
+    } else {
+      setPlayers(playersWithNames);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
