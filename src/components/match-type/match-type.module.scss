@@ -1,0 +1,16 @@
+.item {
+  padding: 30px;
+  margin: 20px 0;
+  border-top-width: thin !important;
+  border: 1px solid #dbdbdb;
+}
+
+.itemContent {
+  display: flex;
+  align-items: center;
+}
+
+.matchTypeHeading {
+  display: inline;
+  padding: 0 15px;
+}

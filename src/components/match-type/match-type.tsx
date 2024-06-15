@@ -1,7 +1,7 @@
 import { Dispatch, ReactNode, SetStateAction } from 'react';
 import { CheckCircle, PeopleFill, PersonFill } from 'react-bootstrap-icons';
 import ListGroup from 'react-bootstrap/ListGroup';
-import styles from './match-type.module.css';
+import styles from './match-type.module.scss';
 
 interface ItemProps {
   text: string;
@@ -19,14 +19,9 @@ const Item: React.FC<ItemProps> = ({
     action
     variant={selected ? 'success' : 'light'}
     onClick={onClick}
-    style={{
-      padding: 30,
-      margin: '20px 0',
-      borderTopWidth: 'thin !important',
-      border: '1px solid #dbdbdb',
-    }}
+    className={styles.item}
   >
-    <span className={styles.item}>
+    <span className={styles.itemContent}>
       {startElement}
       <h1 className={styles.matchTypeHeading}>{text}</h1>
       {selected && <CheckCircle size={35} />}

@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 import { MatchType } from 'components/match-type/match-type';
 import { NumPlayers, Player } from 'components/player-selector/num-players';
 import { NewFooter } from 'components/start-match-footer/new-footer';
-import styles from './styles.module.css';
+import styles from './screens.module.scss';
 
 enum Steps {
   MatchTypeSelection, // 0

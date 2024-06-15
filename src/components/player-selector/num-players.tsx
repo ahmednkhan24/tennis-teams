@@ -3,6 +3,7 @@ import { PersonPlus } from 'react-bootstrap-icons';
 import { PeopleFill, PersonFill } from 'react-bootstrap-icons';
 import Button from 'react-bootstrap/Button';
 import { NamePlayer } from './name-player';
+import styles from './player-selector.module.scss';
 
 export type Player = {
   id: number;
@@ -105,7 +106,7 @@ export const NumPlayers: React.FC<NumPlayersProps> = ({
       <div className="d-grid">
         <Button variant="light" size="lg" onClick={addNewPlayer}>
           <PersonPlus />
-          <span style={{ paddingLeft: 5 }}>Add player</span>
+          <span className={styles.addPlayerText}>Add player</span>
         </Button>
       </div>
     </>

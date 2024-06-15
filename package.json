@@ -22,7 +22,8 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0",
     "react-toastify": "^10.0.4",
-    "react-use": "^17.5.0"
+    "react-use": "^17.5.0",
+    "sass": "^1.77.5"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",

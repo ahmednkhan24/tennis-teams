@@ -1,6 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
-import styles from './new-footer.module.css';
+import styles from './new-footer.module.scss';
 
 const buttonStyles = {
   marginRight: '5px',
