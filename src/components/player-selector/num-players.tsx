@@ -1,4 +1,11 @@
-import { Dispatch, SetStateAction, useCallback, useEffect } from 'react';
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { PersonPlus } from 'react-bootstrap-icons';
 import { PeopleFill, PersonFill } from 'react-bootstrap-icons';
 import Button from 'react-bootstrap/Button';
@@ -27,12 +34,17 @@ export const NumPlayers: React.FC<NumPlayersProps> = ({
   setPlayers,
   matchType,
 }) => {
+  const [playerIndexToFocusOn, setPlayerIndexToFocusOn] = useState(-1);
+  const inputRefs = useRef<HTMLInputElement[]>([]);
+
   // component first mount
   useEffect(() => {
     const playersWithNames = players.filter(({ name }) => !!name);
 
     const minPlayers = matchType === 'singles' ? 2 : 4;
     const difference = minPlayers - playersWithNames.length;
+
+    inputRefs.current = [];
 
     if (difference > 0) {
       setPlayers([...playersWithNames, ...createPlayers(difference)]);
@@ -41,6 +53,18 @@ export const NumPlayers: React.FC<NumPlayersProps> = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const focusOnInput = useCallback(
+    (index: number) => inputRefs.current[index].focus(),
+    []
+  );
+
+  useEffect(() => {
+    if (playerIndexToFocusOn > -1) {
+      focusOnInput(playerIndexToFocusOn);
+      setPlayerIndexToFocusOn(-1);
+    }
+  }, [focusOnInput, playerIndexToFocusOn]);
 
   const addNewPlayer = useCallback(
     () => setPlayers((p) => [...p, createPlayer()]),
@@ -64,17 +88,16 @@ export const NumPlayers: React.FC<NumPlayersProps> = ({
 
   const focusNextPlayer = useCallback(
     (playerNum: number) => {
-      // todo
       if (playerNum === players.length - 1) {
-        // add a new player entry
-        console.log('add new player');
+        // add a new player entry, then focus on it
         addNewPlayer();
+        setPlayerIndexToFocusOn(playerNum + 1);
       } else {
         // focus on the next input
-        console.log('focus on next player');
+        focusOnInput(playerNum + 1);
       }
     },
-    [addNewPlayer, players.length]
+    [addNewPlayer, focusOnInput, players.length]
   );
 
   return (
@@ -95,6 +118,11 @@ export const NumPlayers: React.FC<NumPlayersProps> = ({
         {Object.values(players).map((player, idx) => (
           <NamePlayer
             key={player.id}
+            ref={(refElement) => {
+              if (inputRefs.current !== null && refElement !== null) {
+                inputRefs.current[idx] = refElement;
+              }
+            }}
             player={player}
             playerNum={idx + 1}
             matchType={matchType}
