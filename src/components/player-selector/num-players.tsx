@@ -2,20 +2,19 @@ import { Dispatch, SetStateAction, useCallback, useEffect } from 'react';
 import { PersonPlus } from 'react-bootstrap-icons';
 import { PeopleFill, PersonFill } from 'react-bootstrap-icons';
 import Button from 'react-bootstrap/Button';
+import { v4 as uuid } from 'uuid';
 import { NamePlayer } from './name-player';
 import styles from './player-selector.module.scss';
 
 export type Player = {
-  id: number;
+  id: string;
   name: string;
 };
 
-export const createPlayer = (idx: number): Player => ({ name: '', id: idx });
+export const createPlayer = (): Player => ({ name: '', id: uuid() });
 
 export const createPlayers = (numPlayers: number) =>
-  Array(numPlayers)
-    .fill(undefined)
-    .map((_, idx) => createPlayer(idx));
+  Array(numPlayers).fill(undefined).map(createPlayer);
 
 export interface NumPlayersProps {
   players: Player[];
@@ -44,17 +43,17 @@ export const NumPlayers: React.FC<NumPlayersProps> = ({
   }, []);
 
   const addNewPlayer = useCallback(
-    () => setPlayers((p) => [...p, createPlayer(p.length)]),
+    () => setPlayers((p) => [...p, createPlayer()]),
     [setPlayers]
   );
 
   const removePlayer = useCallback(
-    (id: number) => setPlayers((p) => p.filter((player) => player.id !== id)),
+    (id: string) => setPlayers((p) => p.filter((player) => player.id !== id)),
     [setPlayers]
   );
 
   const updatePlayerName = useCallback(
-    (id: number, name: string) =>
+    (id: string, name: string) =>
       setPlayers((p) =>
         p.map((player: Player) =>
           player.id === id ? { ...player, name } : player
@@ -95,7 +94,7 @@ export const NumPlayers: React.FC<NumPlayersProps> = ({
         <h2 className="text-center mb-3">Who's playing?</h2>
         {Object.values(players).map((player, idx) => (
           <NamePlayer
-            key={idx}
+            key={player.id}
             player={player}
             playerNum={idx + 1}
             matchType={matchType}

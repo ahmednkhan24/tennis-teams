@@ -11,7 +11,7 @@ export interface NamePlayerProps {
   playerNum: number;
   matchType: string;
   updatePlayerName: (playerName: string) => void;
-  removePlayer: (playerId: number) => void;
+  removePlayer: (playerId: string) => void;
   onPressEnter: () => void;
 }
 
