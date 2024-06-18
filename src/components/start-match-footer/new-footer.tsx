@@ -2,11 +2,6 @@ import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 import styles from './new-footer.module.scss';
 
-const buttonStyles = {
-  marginRight: '5px',
-  margin: 10,
-};
-
 interface FooterButtonProps {
   text: string;
   variant: string;
@@ -21,11 +16,11 @@ const FooterButton: React.FC<FooterButtonProps> = ({
   disabled = false,
 }) => (
   <Button
+    size="lg"
     variant={variant}
     disabled={disabled}
     onClick={onClick}
-    size="lg"
-    style={buttonStyles}
+    className={styles.footerButton}
   >
     {text}
   </Button>

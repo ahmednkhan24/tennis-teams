@@ -115,7 +115,7 @@ export const NumPlayers: React.FC<NumPlayersProps> = ({
       </h4>
       <div>
         <h2 className="text-center mb-3">Who's playing?</h2>
-        {Object.values(players).map((player, idx) => (
+        {players.map((player, idx) => (
           <NamePlayer
             key={player.id}
             ref={(refElement) => {

@@ -1,4 +1,3 @@
-import React from 'react';
 // using HashRouter bc GitHub pages doesn't support the tech used by the BrowserRouter
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { NavBar } from 'components/navbar/nav-bar';

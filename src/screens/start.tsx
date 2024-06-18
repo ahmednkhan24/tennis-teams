@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react';
-import React from 'react';
 import Container from 'react-bootstrap/Container';
 import { MatchType } from 'components/match-type/match-type';
 import { NumPlayers, Player } from 'components/player-selector/num-players';

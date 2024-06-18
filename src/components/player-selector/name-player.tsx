@@ -37,14 +37,11 @@ export const NamePlayer = forwardRef(
 
     return (
       <InputGroup className="mb-3" size="lg">
-        <InputGroup.Text id={`player-${player.id}-name`}>
-          Player {playerNum}
-        </InputGroup.Text>
+        <InputGroup.Text>Player {playerNum}</InputGroup.Text>
         <Form.Control
           ref={forwardedRef}
           value={name}
           aria-label="Name"
-          aria-describedby={`player-${player.id}-name`}
           onChange={(event) => setName(event.target.value)}
           onKeyDown={(event) => {
             if (event.key === 'Enter') {
