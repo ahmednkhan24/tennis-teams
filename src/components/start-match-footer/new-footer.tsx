@@ -9,22 +9,24 @@ interface FooterButtonProps {
   disabled?: boolean;
 }
 
-const FooterButton: React.FC<FooterButtonProps> = ({
+function FooterButton({
   text,
   variant,
   onClick,
   disabled = false,
-}) => (
-  <Button
-    size="lg"
-    variant={variant}
-    disabled={disabled}
-    onClick={onClick}
-    className={styles.footerButton}
-  >
-    {text}
-  </Button>
-);
+}: FooterButtonProps) {
+  return (
+    <Button
+      size="lg"
+      variant={variant}
+      disabled={disabled}
+      onClick={onClick}
+      className={styles.footerButton}
+    >
+      {text}
+    </Button>
+  );
+}
 
 export interface NewFooterProps {
   canGoBack: boolean;
@@ -33,12 +35,12 @@ export interface NewFooterProps {
   onClickNext: () => void;
 }
 
-export const NewFooter: React.FC<NewFooterProps> = ({
+export function NewFooter({
   canGoBack,
   canGoNext,
   onClickBack,
   onClickNext,
-}) => {
+}: NewFooterProps) {
   const navigate = useNavigate();
 
   return (
@@ -63,4 +65,4 @@ export const NewFooter: React.FC<NewFooterProps> = ({
       </div>
     </div>
   );
-};
+}

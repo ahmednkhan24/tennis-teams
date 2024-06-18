@@ -3,7 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link, useLocation } from 'react-router-dom';
 
-export const NavBar: React.FC = () => {
+export function NavBar() {
   const { pathname } = useLocation();
 
   if (pathname.includes('new')) {
@@ -32,4 +32,4 @@ export const NavBar: React.FC = () => {
       </Container>
     </Navbar>
   );
-};
+}

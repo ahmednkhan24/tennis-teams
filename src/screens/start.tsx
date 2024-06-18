@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import { MatchType } from 'components/match-type/match-type';
-import { NumPlayers, Player } from 'components/player-selector/num-players';
+import { NumPlayers, Player } from 'components/player-selector';
 import { NewFooter } from 'components/start-match-footer/new-footer';
 import styles from './screens.module.scss';
 
@@ -11,7 +11,7 @@ enum Steps {
   MatchPreviewSelection, // 2
 }
 
-export const StartMatch: React.FC = () => {
+export function StartMatch() {
   const [step, setStep] = useState(Steps.MatchTypeSelection);
   const [matchType, setMatchType] = useState('');
   const [players, setPlayers] = useState<Player[]>([]);
@@ -54,4 +54,4 @@ export const StartMatch: React.FC = () => {
       />
     </div>
   );
-};
+}

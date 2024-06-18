@@ -5,7 +5,7 @@ import { Content } from 'screens/content';
 import { Home } from 'screens/home';
 import { StartMatch } from 'screens/start';
 
-const App: React.FC = () => {
+function App() {
   return (
     <HashRouter>
       <NavBar />
@@ -19,6 +19,6 @@ const App: React.FC = () => {
       </Routes>
     </HashRouter>
   );
-};
+}
 
 export default App;

@@ -2,7 +2,7 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import { Link, useNavigate } from 'react-router-dom';
 
-export const Home: React.FC = () => {
+export function Home() {
   const navigate = useNavigate();
 
   return (
@@ -15,4 +15,4 @@ export const Home: React.FC = () => {
       </Button>
     </Container>
   );
-};
+}

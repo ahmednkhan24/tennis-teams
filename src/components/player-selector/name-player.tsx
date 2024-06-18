@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { useDebounce } from 'react-use';
-import { Player } from './num-players';
+import { Player } from './hooks';
 
 export interface NamePlayerProps {
   player: Player;
