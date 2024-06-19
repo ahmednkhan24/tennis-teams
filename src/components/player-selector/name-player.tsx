@@ -8,7 +8,6 @@ import { useDebounce } from 'react-use';
 export interface NamePlayerProps {
   player: Player;
   playerNum: number;
-  matchType: string;
   minPlayers: number;
   updatePlayerName: (playerName: string) => void;
   removePlayer: (playerId: string) => void;
@@ -19,7 +18,6 @@ export const NamePlayer = forwardRef(
   (
     {
       playerNum,
-      matchType,
       player,
       minPlayers,
       updatePlayerName,

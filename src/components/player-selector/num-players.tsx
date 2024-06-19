@@ -6,6 +6,26 @@ import { useUpdatePlayers } from './hooks';
 import { NamePlayer } from './name-player';
 import styles from './player-selector.module.scss';
 
+interface MatchIconProps {
+  matchType: string;
+}
+
+function MatchIcon({ matchType }: MatchIconProps) {
+  return (
+    <h4>
+      {matchType === 'singles' ? (
+        <>
+          <PersonFill /> Singles
+        </>
+      ) : (
+        <>
+          <PeopleFill /> Doubles
+        </>
+      )}
+    </h4>
+  );
+}
+
 export interface NumPlayersProps {
   players: Player[];
   setPlayers: Dispatch<SetStateAction<Player[]>>;
@@ -29,17 +49,7 @@ export function NumPlayers({
 
   return (
     <>
-      <h4>
-        {matchType === 'singles' ? (
-          <>
-            <PersonFill /> Singles
-          </>
-        ) : (
-          <>
-            <PeopleFill /> Doubles
-          </>
-        )}
-      </h4>
+      <MatchIcon matchType={matchType} />
       <div>
         <h2 className="text-center mb-3">Who's playing?</h2>
         {players.map((player, idx) => (
@@ -52,7 +62,6 @@ export function NumPlayers({
             }}
             player={player}
             playerNum={idx + 1}
-            matchType={matchType}
             minPlayers={minPlayers}
             removePlayer={removePlayer}
             updatePlayerName={(name) => updatePlayerName(player.id, name)}

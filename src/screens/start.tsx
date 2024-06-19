@@ -23,15 +23,16 @@ export function StartMatch() {
   );
 
   const canGoNext = useMemo(() => {
-    if (step === Steps.MatchTypeSelection) {
-      return !!matchType;
+    switch (step) {
+      case Steps.MatchTypeSelection:
+        return !!matchType;
+      case Steps.PlayerNameSelection:
+        return players.filter(({ name }) => !!name).length >= minPlayers;
+      case Steps.MatchPreviewSelection:
+        return false;
+      default:
+        return true;
     }
-
-    if (step === Steps.PlayerNameSelection) {
-      return players.filter(({ name }) => !!name).length >= minPlayers;
-    }
-
-    return true;
   }, [matchType, minPlayers, players, step]);
 
   return (
@@ -48,7 +49,11 @@ export function StartMatch() {
               minPlayers={minPlayers}
             />
           ) : (
-            <MatchDetails readonly />
+            <MatchDetails
+              readonly
+              matchType={matchType}
+              players={players.filter(({ name }) => !!name)}
+            />
           )}
         </Container>
       </div>
