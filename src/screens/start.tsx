@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import Container from 'react-bootstrap/Container';
+import { MatchDetails } from 'components/match-details/match-details';
 import { MatchType } from 'components/match-type/match-type';
 import { NumPlayers, Player } from 'components/player-selector';
 import { NewFooter } from 'components/start-match-footer/new-footer';
@@ -16,18 +17,22 @@ export function StartMatch() {
   const [matchType, setMatchType] = useState('');
   const [players, setPlayers] = useState<Player[]>([]);
 
+  const minPlayers = useMemo(
+    () => (matchType === 'singles' ? 2 : 4),
+    [matchType]
+  );
+
   const canGoNext = useMemo(() => {
     if (step === Steps.MatchTypeSelection) {
       return !!matchType;
     }
 
     if (step === Steps.PlayerNameSelection) {
-      const minPlayers = matchType === 'singles' ? 2 : 4;
       return players.filter(({ name }) => !!name).length >= minPlayers;
     }
 
     return true;
-  }, [matchType, players, step]);
+  }, [matchType, minPlayers, players, step]);
 
   return (
     <div className={styles.startMatchContainer}>
@@ -40,9 +45,10 @@ export function StartMatch() {
               players={players}
               setPlayers={setPlayers}
               matchType={matchType}
+              minPlayers={minPlayers}
             />
           ) : (
-            <div>TODO: preview screen</div>
+            <MatchDetails readonly />
           )}
         </Container>
       </div>

@@ -10,12 +10,14 @@ export interface NumPlayersProps {
   players: Player[];
   setPlayers: Dispatch<SetStateAction<Player[]>>;
   matchType: string;
+  minPlayers: number;
 }
 
 export function NumPlayers({
   players,
   setPlayers,
   matchType,
+  minPlayers,
 }: NumPlayersProps) {
   const {
     inputRefs,
@@ -23,7 +25,7 @@ export function NumPlayers({
     addNewPlayer,
     updatePlayerName,
     focusOnNextPlayer,
-  } = useUpdatePlayers({ players, setPlayers, matchType });
+  } = useUpdatePlayers({ players, setPlayers, minPlayers });
 
   return (
     <>
@@ -51,6 +53,7 @@ export function NumPlayers({
             player={player}
             playerNum={idx + 1}
             matchType={matchType}
+            minPlayers={minPlayers}
             removePlayer={removePlayer}
             updatePlayerName={(name) => updatePlayerName(player.id, name)}
             onPressEnter={() => focusOnNextPlayer(idx)}

@@ -10,6 +10,7 @@ export interface NamePlayerProps {
   player: Player;
   playerNum: number;
   matchType: string;
+  minPlayers: number;
   updatePlayerName: (playerName: string) => void;
   removePlayer: (playerId: string) => void;
   onPressEnter: () => void;
@@ -21,6 +22,7 @@ export const NamePlayer = forwardRef(
       playerNum,
       matchType,
       player,
+      minPlayers,
       updatePlayerName,
       removePlayer,
       onPressEnter,
@@ -30,10 +32,10 @@ export const NamePlayer = forwardRef(
     const [name, setName] = useState(player.name);
     useDebounce(() => updatePlayerName(name), 500, [name]);
 
-    const canRemove = useMemo(() => {
-      const minPlayers = matchType === 'singles' ? 2 : 4;
-      return playerNum > minPlayers;
-    }, [playerNum, matchType]);
+    const canRemove = useMemo(
+      () => playerNum > minPlayers,
+      [minPlayers, playerNum]
+    );
 
     return (
       <InputGroup className="mb-3" size="lg">

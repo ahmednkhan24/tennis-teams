@@ -16,13 +16,13 @@ export type Player = {
 export interface UseUpdatePlayersProps {
   players: Player[];
   setPlayers: Dispatch<SetStateAction<Player[]>>;
-  matchType: string;
+  minPlayers: number;
 }
 
 export function useUpdatePlayers({
   players,
   setPlayers,
-  matchType,
+  minPlayers,
 }: UseUpdatePlayersProps) {
   const { inputRefs, setPlayerIndexToFocusOn, focusOnInput } =
     useFocusOnPlayer();
@@ -33,7 +33,6 @@ export function useUpdatePlayers({
   useComponentFirstMount(() => {
     const playersWithNames = players.filter(({ name }) => !!name);
 
-    const minPlayers = matchType === 'singles' ? 2 : 4;
     const difference = minPlayers - playersWithNames.length;
 
     inputRefs.current = [];
