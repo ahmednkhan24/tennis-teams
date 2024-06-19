@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { PersonPlus } from 'react-bootstrap-icons';
 import { PeopleFill, PersonFill } from 'react-bootstrap-icons';
 import Button from 'react-bootstrap/Button';
-import { Player, useUpdatePlayers } from './hooks';
+import { useUpdatePlayers } from './hooks';
 import { NamePlayer } from './name-player';
 import styles from './player-selector.module.scss';
 

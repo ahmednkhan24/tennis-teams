@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import { MatchDetails } from 'components/match-details/match-details';
 import { MatchType } from 'components/match-type/match-type';
-import { NumPlayers, Player } from 'components/player-selector';
+import { NumPlayers } from 'components/player-selector';
 import { NewFooter } from 'components/start-match-footer/new-footer';
 import styles from './screens.module.scss';
 

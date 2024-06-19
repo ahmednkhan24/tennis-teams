@@ -8,11 +8,6 @@ export const createPlayer = (): Player => ({ name: '', id: uuid() });
 export const createPlayers = (numPlayers: number) =>
   Array(numPlayers).fill(undefined).map(createPlayer);
 
-export type Player = {
-  id: string;
-  name: string;
-};
-
 export interface UseUpdatePlayersProps {
   players: Player[];
   setPlayers: Dispatch<SetStateAction<Player[]>>;
