@@ -1,4 +1,7 @@
 import Card from 'react-bootstrap/Card';
+import Col from 'react-bootstrap/Col';
+import ListGroup from 'react-bootstrap/ListGroup';
+import Row from 'react-bootstrap/Row';
 import { useGenerateMatch } from './hooks/use-generate-match';
 import styles from './match-details.module.scss';
 
@@ -62,6 +65,34 @@ export function MatchDetails({
 
   return (
     <>
+      <div className="pb-3">
+        <Card.Title className="pb-2">Test</Card.Title>
+        <Row className="align-items-center justify-content-space-between text-center">
+          <Col xs={5}>
+            <Card onClick={() => console.log('clicked')}>
+              <Card.Body>
+                <ListGroup variant="flush">
+                  <ListGroup.Item>Player 1</ListGroup.Item>
+                  <ListGroup.Item>Player 2</ListGroup.Item>
+                </ListGroup>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col xs={2}>
+            <h2>vs</h2>
+          </Col>
+          <Col xs={5}>
+            <Card onClick={() => console.log('clicked')}>
+              <Card.Body>
+                <ListGroup variant="flush">
+                  <ListGroup.Item>Player 3</ListGroup.Item>
+                  <ListGroup.Item>Player 4</ListGroup.Item>
+                </ListGroup>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </div>
       {games.map((game, idx) => (
         <GameRow key={game.id} game={game} gameNum={idx + 1} />
       ))}
