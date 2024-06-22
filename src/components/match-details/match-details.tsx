@@ -15,8 +15,11 @@ export function MatchDetails({
 }: MatchDetailsProps) {
   const games = useGenerateMatch({ players, matchType });
 
-  function GameRow({ game, gameNum }: any) {
-    const [team1, team2] = game;
+  console.log('games: ', games);
+
+  function GameRow({ game }: any) {
+    const { teams, gameNum } = game;
+    const [team1, team2] = teams;
     return (
       <>
         <Card.Title>Game {gameNum}</Card.Title>
@@ -36,7 +39,7 @@ export function MatchDetails({
   return (
     <>
       {games.map((game, idx) => (
-        <GameRow game={game} gameNum={idx + 1} />
+        <GameRow key={idx} game={game} />
       ))}
     </>
   );

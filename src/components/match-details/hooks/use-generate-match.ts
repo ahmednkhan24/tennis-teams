@@ -13,11 +13,25 @@ export function useGenerateMatch({
   matchType,
   players,
 }: useGenerateMatchProps) {
-  const singles = useMemo(() => calculateCombinations(players), [players]);
+  const games = useMemo(() => {
+    const singles = calculateCombinations(players);
 
-  console.log({ matchType });
-  console.log('players: ', players);
-  console.log('singles games: ', singles);
+    if (matchType === 'singles') {
+      return singles;
+    }
 
-  return singles;
+    const doubles = calculateCombinations(singles).filter((game) => {
+      const [team1Players, team2Players] = game;
+
+      const hasDuplicates = team1Players.some((name) =>
+        team2Players.includes(name)
+      );
+
+      return !hasDuplicates;
+    });
+
+    return doubles;
+  }, [matchType, players]);
+
+  return games.map((game, idx) => ({ gameNum: idx + 1, teams: game }));
 }
