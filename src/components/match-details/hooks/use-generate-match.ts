@@ -13,12 +13,11 @@ export function useGenerateMatch({
   matchType,
   players,
 }: useGenerateMatchProps) {
-  const ids = useMemo(() => players.map(({ id }) => id), [players]);
-
-  const singles = useMemo(() => calculateCombinations(ids), [ids]);
+  const singles = useMemo(() => calculateCombinations(players), [players]);
 
   console.log({ matchType });
-  console.log(players);
-  console.log(ids);
-  console.log(singles);
+  console.log('players: ', players);
+  console.log('singles games: ', singles);
+
+  return singles;
 }
