@@ -17,29 +17,53 @@ export function MatchDetails({
 
   console.log('games: ', games);
 
-  function GameRow({ game }: any) {
-    const { teams, gameNum } = game;
-    const [team1, team2] = teams;
+  function PlayerName({ player }: { player: Player }) {
+    return (
+      <Card.Text className={styles.playerName}>
+        {JSON.stringify(player)}
+      </Card.Text>
+    );
+  }
+
+  function PlayerNames({ players }: { players: Player[] }) {
     return (
       <>
+        {players.map((player) => (
+          <PlayerName key={player.id} player={player} />
+        ))}
+      </>
+    );
+  }
+
+  function Team({ team }: { team: Team }) {
+    return (
+      <Card onClick={() => console.log('clicked')}>
+        <Card.Body>
+          <PlayerNames players={team.players} />
+        </Card.Body>
+      </Card>
+    );
+  }
+
+  function GameRow({ game, gameNum }: { game: Game; gameNum: number }) {
+    const { team1, team2 } = game;
+
+    return (
+      <div>
         <Card.Title>Game {gameNum}</Card.Title>
         <div className={styles.gameRow}>
-          <Card onClick={() => console.log('clicked')}>
-            <Card.Body>{JSON.stringify(team1)}</Card.Body>
-          </Card>
-          <span className={styles.vsText}>vs</span>
-          <Card>
-            <Card.Body>{JSON.stringify(team2)}</Card.Body>
-          </Card>
+          <Team team={team1} />
+          <span>vs</span>
+          <Team team={team2} />
         </div>
-      </>
+      </div>
     );
   }
 
   return (
     <>
       {games.map((game, idx) => (
-        <GameRow key={idx} game={game} />
+        <GameRow key={game.id} game={game} gameNum={idx + 1} />
       ))}
     </>
   );

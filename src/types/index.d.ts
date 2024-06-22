@@ -3,7 +3,19 @@ declare module '*.module.scss' {
   export default content;
 }
 
-declare type Player = {
+declare interface Player {
   id: string;
   name: string;
-};
+}
+
+declare interface Team {
+  id: string;
+  players: Player[];
+}
+
+declare interface Game {
+  id: string;
+  team1: Team;
+  team2: Team;
+  winningTeamId?: string;
+}
