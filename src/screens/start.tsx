@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import Container from 'react-bootstrap/Container';
+import classNames from 'classnames';
 import { MatchDetails } from 'components/match-details/match-details';
 import { MatchType } from 'components/match-type/match-type';
 import { NumPlayers } from 'components/player-selector';
@@ -36,27 +37,25 @@ export function StartMatch() {
   }, [matchType, minPlayers, players, step]);
 
   return (
-    <div className={styles.startMatchContainer}>
-      <div className="pb-3">
-        <Container className="pt-3">
-          {step === Steps.MatchTypeSelection ? (
-            <MatchType matchType={matchType} setMatchType={setMatchType} />
-          ) : step === Steps.PlayerNameSelection ? (
-            <NumPlayers
-              players={players}
-              setPlayers={setPlayers}
-              matchType={matchType}
-              minPlayers={minPlayers}
-            />
-          ) : (
-            <MatchDetails
-              readonly
-              matchType={matchType}
-              players={players.filter(({ name }) => !!name)}
-            />
-          )}
-        </Container>
-      </div>
+    <div className={classNames('mb-3', styles.screenContainer)}>
+      <Container className="pt-3 pb-5 mb-5">
+        {step === Steps.MatchTypeSelection ? (
+          <MatchType matchType={matchType} setMatchType={setMatchType} />
+        ) : step === Steps.PlayerNameSelection ? (
+          <NumPlayers
+            players={players}
+            setPlayers={setPlayers}
+            matchType={matchType}
+            minPlayers={minPlayers}
+          />
+        ) : (
+          <MatchDetails
+            readonly
+            matchType={matchType}
+            players={players.filter(({ name }) => !!name)}
+          />
+        )}
+      </Container>
       <NewFooter
         canGoNext={canGoNext}
         canGoBack={step !== Steps.MatchTypeSelection}

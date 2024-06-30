@@ -1,5 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
+import { StickyFooter } from 'components/sticky-footer/sticky-footer';
 import styles from './new-footer.module.scss';
 
 interface FooterButtonProps {
@@ -7,6 +8,7 @@ interface FooterButtonProps {
   variant: string;
   onClick: () => void;
   disabled?: boolean;
+  className?: string;
 }
 
 function FooterButton({
@@ -14,6 +16,7 @@ function FooterButton({
   variant,
   onClick,
   disabled = false,
+  className = '',
 }: FooterButtonProps) {
   return (
     <Button
@@ -21,7 +24,7 @@ function FooterButton({
       variant={variant}
       disabled={disabled}
       onClick={onClick}
-      className={styles.footerButton}
+      className={className}
     >
       {text}
     </Button>
@@ -44,25 +47,30 @@ export function NewFooter({
   const navigate = useNavigate();
 
   return (
-    <div className={styles.footer}>
-      <div>
+    <StickyFooter>
+      <div className={styles.footer}>
         <FooterButton
           text="Cancel"
           variant="danger"
           onClick={() => navigate('/')}
         />
+        <div>
+          {canGoBack && (
+            <FooterButton
+              text="Back"
+              variant="light"
+              onClick={onClickBack}
+              className={styles.backButton}
+            />
+          )}
+          <FooterButton
+            text="Next"
+            variant="primary"
+            disabled={!canGoNext}
+            onClick={onClickNext}
+          />
+        </div>
       </div>
-      <div>
-        {canGoBack && (
-          <FooterButton text="Back" variant="light" onClick={onClickBack} />
-        )}
-        <FooterButton
-          text="Next"
-          variant="primary"
-          disabled={!canGoNext}
-          onClick={onClickNext}
-        />
-      </div>
-    </div>
+    </StickyFooter>
   );
 }
