@@ -1,7 +1,8 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
 import { PersonPlus } from 'react-bootstrap-icons';
 import { PeopleFill, PersonFill } from 'react-bootstrap-icons';
 import Button from 'react-bootstrap/Button';
+import { useIsVisible } from 'hooks/use-is-visible';
 import { useUpdatePlayers } from './hooks';
 import { NamePlayer } from './name-player';
 import styles from './player-selector.module.scss';
@@ -39,6 +40,15 @@ export function NumPlayers({
   matchType,
   minPlayers,
 }: NumPlayersProps) {
+  const addPlayerButtonRef = useRef<HTMLButtonElement>(null);
+  const isAddPlayerButtonVisible = useIsVisible(addPlayerButtonRef);
+
+  useEffect(() => {
+    if (!isAddPlayerButtonVisible) {
+      addPlayerButtonRef.current?.scrollIntoView();
+    }
+  }, [isAddPlayerButtonVisible]);
+
   const {
     inputRefs,
     removePlayer,
@@ -70,7 +80,12 @@ export function NumPlayers({
         ))}
       </div>
       <div className="d-grid">
-        <Button variant="light" size="lg" onClick={addNewPlayer}>
+        <Button
+          variant="light"
+          size="lg"
+          onClick={addNewPlayer}
+          ref={addPlayerButtonRef}
+        >
           <PersonPlus />
           <span className={styles.addPlayerText}>Add player</span>
         </Button>

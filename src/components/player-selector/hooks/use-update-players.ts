@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useCallback } from 'react';
-import { useComponentFirstMount } from 'hooks/use-component-first-mount';
+import { useLifecycles } from 'react-use';
 import { v4 as uuid } from 'uuid';
 import { useFocusOnPlayer } from './use-focus-on-player';
 
@@ -22,10 +22,11 @@ export function useUpdatePlayers({
   const { inputRefs, setPlayerIndexToFocusOn, focusOnInput } =
     useFocusOnPlayer();
 
+  // component first mount
   // clean up any empty <input /> elements by filtering them out
   // create the minimum # of <input /> elements depending on the matchType (singles, doubles)
   // reset the references to the <input /> elements due to the clean up / re-creation
-  useComponentFirstMount(() => {
+  useLifecycles(() => {
     const playersWithNames = players.filter(({ name }) => !!name);
 
     const difference = minPlayers - playersWithNames.length;
