@@ -3,7 +3,10 @@ import { useLifecycles } from 'react-use';
 import { v4 as uuid } from 'uuid';
 import { useFocusOnPlayer } from './use-focus-on-player';
 
-export const createPlayer = (): Player => ({ name: '', id: uuid() });
+export const createPlayer = (): Player => ({
+  playerName: '',
+  playerId: uuid(),
+});
 
 export const createPlayers = (numPlayers: number) =>
   Array(numPlayers).fill(undefined).map(createPlayer);
@@ -27,7 +30,7 @@ export function useUpdatePlayers({
   // create the minimum # of <input /> elements depending on the matchType (singles, doubles)
   // reset the references to the <input /> elements due to the clean up / re-creation
   useLifecycles(() => {
-    const playersWithNames = players.filter(({ name }) => !!name);
+    const playersWithNames = players.filter(({ playerName }) => !!playerName);
 
     const difference = minPlayers - playersWithNames.length;
 
@@ -46,7 +49,8 @@ export function useUpdatePlayers({
   );
 
   const removePlayer = useCallback(
-    (id: string) => setPlayers((p) => p.filter((player) => player.id !== id)),
+    (id: string) =>
+      setPlayers((p) => p.filter((player) => player.playerId !== id)),
     [setPlayers]
   );
 
@@ -54,7 +58,7 @@ export function useUpdatePlayers({
     (id: string, name: string) =>
       setPlayers((p) =>
         p.map((player: Player) =>
-          player.id === id ? { ...player, name } : player
+          player.playerId === id ? { ...player, playerName: name } : player
         )
       ),
     [setPlayers]

@@ -28,7 +28,9 @@ export function StartMatch() {
       case Steps.MatchTypeSelection:
         return !!matchType;
       case Steps.PlayerNameSelection:
-        return players.filter(({ name }) => !!name).length >= minPlayers;
+        return (
+          players.filter(({ playerName }) => !!playerName).length >= minPlayers
+        );
       case Steps.MatchPreviewSelection:
         return false;
       default:
@@ -52,7 +54,7 @@ export function StartMatch() {
           <MatchDetails
             readonly
             matchType={matchType}
-            players={players.filter(({ name }) => !!name)}
+            players={players.filter(({ playerName }) => !!playerName)}
           />
         )}
       </Container>

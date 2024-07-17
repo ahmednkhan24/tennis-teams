@@ -12,8 +12,8 @@ function PlayerCard({ players }: PlayerCardProps) {
     <Card onClick={() => console.log('clicked')}>
       <Card.Body>
         <ListGroup variant="flush">
-          {players.map((player) => (
-            <ListGroup.Item key={player.id}>{player.name}</ListGroup.Item>
+          {players.map(({ playerId, playerName }) => (
+            <ListGroup.Item key={playerId}>{playerName}</ListGroup.Item>
           ))}
         </ListGroup>
       </Card.Body>

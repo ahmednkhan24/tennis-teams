@@ -14,12 +14,10 @@ export function MatchDetails({
 }: MatchDetailsProps) {
   const games = useGenerateMatch({ players, matchType });
 
-  console.log('games: ', games);
-
   return (
     <>
       {games.map((game, idx) => (
-        <GameRow key={game.id} game={game} gameNum={idx + 1} />
+        <GameRow key={game.gameId} game={game} gameNum={idx + 1} />
       ))}
     </>
   );

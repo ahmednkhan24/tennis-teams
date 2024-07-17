@@ -64,7 +64,7 @@ export function NumPlayers({
         <h2 className="text-center mb-3">Who's playing?</h2>
         {players.map((player, idx) => (
           <NamePlayer
-            key={player.id}
+            key={player.playerId}
             ref={(refElement) => {
               if (inputRefs.current !== null && refElement !== null) {
                 inputRefs.current[idx] = refElement;
@@ -74,7 +74,7 @@ export function NumPlayers({
             playerNum={idx + 1}
             minPlayers={minPlayers}
             removePlayer={removePlayer}
-            updatePlayerName={(name) => updatePlayerName(player.id, name)}
+            updatePlayerName={(name) => updatePlayerName(player.playerId, name)}
             onPressEnter={() => focusOnNextPlayer(idx)}
           />
         ))}

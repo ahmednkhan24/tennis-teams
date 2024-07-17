@@ -26,7 +26,8 @@ export const NamePlayer = forwardRef(
     }: NamePlayerProps,
     forwardedRef: ForwardedRef<HTMLInputElement>
   ) => {
-    const [name, setName] = useState(player.name);
+    const { playerName, playerId } = player;
+    const [name, setName] = useState(playerName);
     useDebounce(() => updatePlayerName(name), 500, [name]);
 
     const canRemove = useMemo(
@@ -49,7 +50,7 @@ export const NamePlayer = forwardRef(
           }}
         />
         {canRemove && (
-          <Button variant="secondary" onClick={() => removePlayer(player.id)}>
+          <Button variant="secondary" onClick={() => removePlayer(playerId)}>
             <XIcon />
           </Button>
         )}
