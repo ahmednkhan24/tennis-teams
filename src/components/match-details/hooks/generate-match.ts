@@ -1,4 +1,4 @@
-import { createDoublesGames } from './doubles';
+import { createDoublesGames, sortDoublesGames } from './doubles';
 import { createSinglesGame, singlesTeamToSinglesGame } from './singles';
 
 export function generateMatch(
@@ -13,6 +13,7 @@ export function generateMatch(
   }
 
   const doubles = createDoublesGames(singles);
+  const sorted = sortDoublesGames(doubles, playerIds);
 
-  return doubles;
+  return sorted;
 }
